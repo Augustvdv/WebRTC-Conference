@@ -1,0 +1,70 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+<script type="text/javascript" src="../channels.json"></script>
+
+<dom-module id="my-view4">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+    </style>
+    <div class="card">
+      <div class="circle">4</div>
+      <h1>Available Channels</h1>
+      <div id="dataJson"></div>
+      <div id="dataJson2"></div>
+      <script>
+        var test = "Test";
+      
+        $.ajax ({
+          url: 'channels.json',
+          dataType: 'json',
+          type: 'get',
+          cache: false,
+          success: function(data) {
+            $(data.data.channels).each(function(index, value) {
+              var value2 = value.name;
+              var value3 = value2.toString();
+              $("#dataJson").text(value3 + '<br>');
+              console.log(value3);
+            })
+          }
+        });
+        $.ajax ({
+          url: 'channels.json',
+          dataType: 'json',
+          type: 'get',
+          cache: false,
+          success: function(data) {
+            $(data.data.channels).each(function(index, value) {
+              var value2 = value.attribute2;
+              var value3 = value2.toString();
+              $("#dataJson2").text(value3 + '<br>');
+              console.log(value3);
+            })
+          }
+        })
+      </script>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-view4'
+    });
+  </script>
+
+</dom-module>
