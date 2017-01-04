@@ -9,61 +9,64 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="shared-styles.html">
-<script type="text/javascript" src="../channels.json"></script>
+
+
 
 <dom-module id="my-view4">
-  <template>
-    <style include="shared-styles">
-      :host {
-        display: block;
-
-        padding: 10px;
+    <template>
+    <style type="text/css">
+      .card {
+        margin: 24px;
+        padding: 16px;
+        color: #757575;6
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      }
+      h1 {
+        margin: 16px 0;
+        color: #212121;
+        font-size: 22px;
+      }
+      table {
+        text-align: left;
+      }
+      th {
+        padding-right: 20px;
+        font-weight: normal;
       }
     </style>
     <div class="card">
-      <div class="circle">4</div>
-      <h1>Available Channels</h1>
-      <div id="dataJson"></div>
-      <div id="dataJson2"></div>
-      <script>
-        var test = "Test";
-      
-        $.ajax ({
-          url: 'channels.json',
-          dataType: 'json',
-          type: 'get',
-          cache: false,
-          success: function(data) {
-            $(data.data.channels).each(function(index, value) {
-              var value2 = value.name;
-              var value3 = value2.toString();
-              $("#dataJson").text(value3 + '<br>');
-              console.log(value3);
-            })
-          }
-        });
-        $.ajax ({
-          url: 'channels.json',
-          dataType: 'json',
-          type: 'get',
-          cache: false,
-          success: function(data) {
-            $(data.data.channels).each(function(index, value) {
-              var value2 = value.attribute2;
-              var value3 = value2.toString();
-              $("#dataJson2").text(value3 + '<br>');
-              console.log(value3);
-            })
-          }
-        })
-      </script>
-    </div>
+        <div><h1>Available Channels:</h1></div>
+        <table> 
+          <tr> 
+            <th>Channel number</th>
+            <th>Channel name</th>
+            <th>Attribute 2</th>
+          </tr>
+      <template is="dom-repeat" items="{{channels}}">
+          <tr>
+            <th># <span>{{index}}</span></th>
+            <th><span>{{item.name}}</span></th>
+            <th><span>{{item.attribute2}}</span></th>
+          </tr>
+      </template>
+        </table>
+      </div>
   </template>
-
   <script>
     Polymer({
-      is: 'my-view4'
+      is: 'my-view4',
+      ready: function() {
+        this.channels = [
+          { "name": "channel 1", "attribute2": "dummy" }, 
+          { "name": "channel 2", "attribute2": "dummy" }, 
+          { "name": "channel 3", "attribute2": "dummy" }, 
+          { "name": "channel 4", "attribute2": "dummy" }
+        ];
+      }
     });
   </script>
 
